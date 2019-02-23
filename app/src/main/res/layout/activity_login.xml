@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginEmail">
+
+
+    <LinearLayout
+        android:id="@+id/loginLinearLayout"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="25dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="97dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="200dp"
+            android:fontFamily="@font/roboto_thin"
+            android:text="login"
+            android:textColor="@color/lightRed"
+            android:textSize="40sp"
+            tools:layout_editor_absoluteX="164dp"
+            tools:layout_editor_absoluteY="70dp" />
+
+
+
+        <EditText
+            android:id="@+id/emailEditText"
+            android:layout_width="261dp"
+            android:layout_height="53dp"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+            android:hint="email address"
+            android:inputType="textEmailAddress"
+            android:textColorHint="@color/lightRed"
+            tools:layout_editor_absoluteX="81dp"
+            tools:layout_editor_absoluteY="295dp" />
+
+        <EditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="261dp"
+            android:layout_height="53dp"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+            android:hint="password"
+            android:inputType="textPassword"
+            android:textColorHint="@color/lightRed"
+            tools:layout_editor_absoluteX="75dp"
+            tools:layout_editor_absoluteY="406dp" />
+
+        <Button
+            android:id="@+id/loginEmailButton"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/round_button"
+            android:backgroundTint="@color/lightRed"
+            android:fontFamily="@font/roboto_thin"
+            android:text="login"
+            android:textAllCaps="false"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/signUpButton"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/round_button"
+            android:backgroundTint="@color/lightRed"
+            android:fontFamily="@font/roboto_thin"
+            android:text="signup"
+            android:textAllCaps="false"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/forgotPasswordTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="forgot password?"
+            android:textColor="@color/lightRed"
+            android:textSize="12sp" />
+
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

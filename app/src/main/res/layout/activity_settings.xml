@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/settings_constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Settings">
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation_settings"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="9dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settings_profile_pic"
+        app:layout_constraintVertical_bias="0.981"
+        app:menu="@menu/navigation_items" />
+
+
+    <TextView
+        android:id="@+id/settings_profile_pic_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="32dp"
+        android:fontFamily="@font/roboto_thin"
+        android:text="profile"
+        android:textColor="@color/lightRed"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toTopOf="@+id/settings_profile_pic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/settings_profile_pic"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_alignBottom="@id/settings_profile_pic_textView"
+        android:layout_marginStart="105dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="27dp"
+        android:src="@drawable/emptyprofilepic"
+        app:layout_constraintBottom_toTopOf="@+id/settings_name"
+        app:layout_constraintEnd_toStartOf="@+id/floatingActionProfile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settings_profile_pic_textView" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:backgroundTint="@color/lightRed"
+        android:clickable="true"
+        android:src="@drawable/ic_photo_camera_black_24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/settings_profile_pic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/settings_profile_pic"
+        app:layout_constraintTop_toBottomOf="@+id/settings_profile_pic" />
+
+    <TextView
+        android:id="@+id/settings_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="351dp"
+        android:fontFamily="@font/roboto_thin"
+        android:text="Name"
+        android:textColor="@color/lightRed"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/settings_profile_pic"
+        app:layout_constraintStart_toStartOf="@+id/settings_profile_pic"
+        app:layout_constraintTop_toBottomOf="@+id/settings_profile_pic" />
+
+
+</android.support.constraint.ConstraintLayout>
