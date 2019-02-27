@@ -97,6 +97,12 @@
             android:textColor="@color/lightRed"
             android:textSize="40sp" />
 
+        <com.facebook.share.widget.ShareButton
+            android:id="@+id/realShareButton"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="invisible"/>
+
         <android.support.v7.widget.CardView
             android:id="@+id/leaderboard1"
             android:layout_width="match_parent"

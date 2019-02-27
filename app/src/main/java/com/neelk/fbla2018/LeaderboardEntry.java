@@ -31,4 +31,8 @@ public class LeaderboardEntry implements Comparable<LeaderboardEntry> {
     public String toString() {
         return "email=" + email + ",score= " + value;
     }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
 }

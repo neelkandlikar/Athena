@@ -55,6 +55,7 @@ public class Game extends AppCompatActivity {
     private Drawable roundButton;
     private SparseArray<Button> ids = new SparseArray<>();
     private SparseArray<Button> chars = new SparseArray<>();
+    private boolean stop = false;
 
 
     @Override
@@ -65,7 +66,7 @@ public class Game extends AppCompatActivity {
         setupNavigation();
 
 
-        int id = Integer.parseInt(getIntent().getStringExtra("id"));
+        String category = getIntent().getStringExtra("category");
         score = findViewById(R.id.scoreTextView);
         question = findViewById(R.id.questionTextView);
         buttonA = findViewById(R.id.buttonA);
@@ -88,8 +89,10 @@ public class Game extends AppCompatActivity {
         chars.put('c', buttonC);
         chars.put('d', buttonD);
 
+        initTimer();
+
         QuestionLoader.clearAll();
-        QuestionLoader.loadQuestions(Game.this, this, id);
+        QuestionLoader.loadQuestions(Game.this, this, category);
 
 
     }
@@ -110,8 +113,10 @@ public class Game extends AppCompatActivity {
 
 
         if (index >= questions.size()) {
-            Log.e("Timer","playCategory Timer cancelled");
+            Log.e("Timer", "playCategory Timer cancelled");
             countDownTimer.cancel();
+            countDownTimer = null;
+            stop = false;
             Intent intent = new Intent(Game.this, Done.class);
             intent.putExtra("score", scoreInt);
             intent.putExtra("numberCorrect", numberCorrect);
@@ -204,10 +209,10 @@ public class Game extends AppCompatActivity {
         @Override
         public void onClick(View view) {
 
+            countDownTimer.cancel();
             wrong.start();
             // Toasty.error(Game.this, "Incorrect!", SMALL_TOAST_LENGTH, true).show();
             showToastMessageError("Incorrect!", SMALL_TOAST_LENGTH);
-            countDownTimer.cancel();
 
             ids.get(view.getId()).setBackgroundColor(getResources().getColor(R.color.red, getTheme()));
             char correctAnswer = currentTopic.get(currentIndex).getCorrectAnswer();
@@ -229,10 +234,10 @@ public class Game extends AppCompatActivity {
         @Override
         public void onClick(View view) {
 
+            countDownTimer.cancel();
             correct.start();
             scoreInt += calculateScore();
             numberCorrect++;
-            countDownTimer.cancel();
 
             ids.get(view.getId()).setBackgroundColor(getResources().getColor(R.color.green, getTheme()));
 
@@ -249,61 +254,46 @@ public class Game extends AppCompatActivity {
         }
     };
 
-    public void pickCategory(int id) {
+    public void pickCategory(String category) {
 
 
-        switch (id) {
-            case R.id.fblaHistoryImageView:
+        switch (category) {
+            case "FBLA History":
                 playCategory(QuestionLoader.getFblaHistory(), 0);
 
                 break;
 
-            case R.id.nationalOfficersImageView:
+            case "National Officers":
                 playCategory(QuestionLoader.getNationalOfficerQuestions(), 0);
 
                 break;
 
-            case R.id.nationalSponsorsImageView:
+            case "National Sponsors":
                 playCategory(QuestionLoader.getNationalSponsorQuestions(), 0);
                 break;
 
-            case R.id.nlcInfoImageView:
+            case "National Conference Info":
                 playCategory(QuestionLoader.getNationalConferenceInfo(), 0);
 
                 break;
 
-            case R.id.parliProcedureImageView:
+            case "Parliamentary Procedure":
                 playCategory(QuestionLoader.getParliQuestions(), 0);
+                break;
+
+            case "Stocks":
+                playCategory(QuestionLoader.getStocks(), 0);
+                break;
+
+            case "Bonds":
+                playCategory(QuestionLoader.getBonds(), 0);
                 break;
         }
 
     }
 
     private void startCountDownTimer() {
-        Log.e("Timer","Starting count down timer");
-        countDownTimer = new CountDownTimer(TIME_LEFT_MILLIS, 1000) {
-            @Override
-            public void onTick(long l) {
-                progressBar.incrementProgressBy(-10);
-                timeTaken++;
-            }
-
-            @Override
-            public void onFinish() {
-
-                wrong.start();
-                Toasty.error(Game.this, "You have run out of time!", SMALL_TOAST_LENGTH).show();
-                newQuestion();
-//                Handler handler = new Handler();
-//                handler.postDelayed(new Runnable() {
-//                    public void run() {
-//                        playCategory(currentTopic, currentIndex + 1);
-//                    }
-//                }, 1000);
-
-
-            }
-        }.start();
+        countDownTimer.start();
     }
 
     private int calculateScore() {
@@ -381,5 +371,59 @@ public class Game extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+            countDownTimer = null;
+        }
+    }
 
+    private void initTimer() {
+        countDownTimer = new CountDownTimer(TIME_LEFT_MILLIS, 1000) {
+            @Override
+            public void onTick(long l) {
+                if (stop) {
+                    cancel();
+                }
+                progressBar.incrementProgressBy(-10);
+                timeTaken++;
+            }
+
+            @Override
+            public void onFinish() {
+
+                wrong.start();
+                Toasty.error(Game.this, "You have run out of time!", SMALL_TOAST_LENGTH).show();
+                newQuestion();
+//                Handler handler = new Handler();
+//                handler.postDelayed(new Runnable() {
+//                    public void run() {
+//                        playCategory(currentTopic, currentIndex + 1);
+//                    }
+//                }, 1000);
+
+
+            }
+        };
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+            countDownTimer = null;
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+            countDownTimer = null;
+        }
+    }
 }

@@ -59,7 +59,7 @@ public class QuestionLoader {
 
     private static DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Questions");
 
-    public static void loadQuestions(final Context context, final Game game, final int id) {
+    public static void loadQuestions(final Context context, final Game game, final String category) {
         databaseReference.orderByKey().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -124,7 +124,7 @@ public class QuestionLoader {
                     }
                 }
 
-                game.pickCategory(id);
+                game.pickCategory(category);
 
             }
 

@@ -1,6 +1,8 @@
 package com.neelk.fbla2018;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -13,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
 import com.facebook.share.model.ShareLinkContent;
@@ -29,13 +32,18 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.io.UnsupportedEncodingException;
 import java.net.Inet4Address;
+import java.net.URLEncoder;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
+import java.util.TooManyListenersException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import es.dmoral.toasty.Toasty;
 
 public class Done extends AppCompatActivity {
 
@@ -59,6 +67,7 @@ public class Done extends AppCompatActivity {
     private ImageView facebookShare;
     private ImageView twitterShare;
     private static int LEADERBOARD_SIZE = 3;
+    private com.facebook.share.widget.ShareButton realShareButton;
 
 
     private HashMap<String, Object> leaderboardMap = new HashMap<>();
@@ -73,6 +82,17 @@ public class Done extends AppCompatActivity {
         questionsCorrectTextView = findViewById(R.id.done_numberCorrect);
         twitterShare = findViewById(R.id.twitterImageView);
         facebookShare = findViewById(R.id.facebookImageView);
+        realShareButton = findViewById(R.id.realShareButton);
+
+
+        ShareLinkContent content = new ShareLinkContent.Builder()
+                .setContentUrl(Uri.parse("https://github.com/neelkandlikar/Athena"))
+                .setQuote("I just scored " + finalScoreLastGame + " points on Athena!" + "\n" + "Download the game today!")
+                .build();
+
+        ShareDialog shareDialog = new ShareDialog(Done.this);
+        shareDialog.canShow(content, ShareDialog.Mode.AUTOMATIC);
+        realShareButton.setShareContent(content);
         facebookShare.setOnClickListener(facebookOnClick);
         twitterShare.setOnClickListener(twitterOnClick);
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -187,7 +207,7 @@ public class Done extends AppCompatActivity {
 
     private void loadLeaderboard() {
 
-        databaseReference.child("Leaderboard").orderByValue().addValueEventListener(new ValueEventListener() {
+        databaseReference.child("Leaderboard").orderByValue().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -209,20 +229,43 @@ public class Done extends AppCompatActivity {
                 Log.e(TAG, leaderboardEntries.toString());
                 Log.e(TAG,"finalScore " + finalScoreLastGame);
                 boolean toUpdate = false;
+                boolean entryExists = false;
 
-                if (finalScoreLastGame > leaderboardEntries.get(leaderboardEntries.size()-1).getValue()) {
-                    toUpdate = true;
-                    leaderboardEntries.remove(leaderboardEntries.size()-1);
-                    for (int i = leaderboardEntries.size() - 1; i >= 0; i--) {
+                for (int i = leaderboardEntries.size() - 1; i >= 0; i--) {
+                    if (leaderboardEntries.get(i).getEmail().equals(UserInfo.getEmail())) {
+                        entryExists = true;
                         if (leaderboardEntries.get(i).getValue() < finalScoreLastGame) {
-                            leaderboardEntries.add(i, new LeaderboardEntry(UserInfo.getEmail(), finalScoreLastGame));
+                            leaderboardEntries.get(i).setValue(finalScoreLastGame);
+                            toUpdate = true;
+                            leaderboardEntries.sort(new Comparator<LeaderboardEntry>() {
+                                @Override
+                                public int compare(LeaderboardEntry l1, LeaderboardEntry l2) {
+                                    return l2.compareTo(l1);
+                                    // greatest to least
+                                }
+                            });
                         }
                     }
-                } else if (leaderboardEntries.size() < LEADERBOARD_SIZE){
-                    leaderboardEntries.add(leaderboardEntries.size(), new LeaderboardEntry(UserInfo.getEmail(), finalScoreLastGame));
-                    toUpdate = true;
                 }
+                if (!entryExists) {
+                    if (finalScoreLastGame > leaderboardEntries.get(leaderboardEntries.size()-1).getValue()) {
+                        toUpdate = true;
+                        if (leaderboardEntries.size() == LEADERBOARD_SIZE) {
+                            leaderboardEntries.remove(leaderboardEntries.size()-1);
+                        }
+                        for (int i = leaderboardEntries.size() - 1; i >= 0; i--) {
+                            if (leaderboardEntries.get(i).getValue() < finalScoreLastGame) {
+                                leaderboardEntries.add(i, new LeaderboardEntry(UserInfo.getEmail(), finalScoreLastGame));
+                            }
+                        }
+                    } else if (leaderboardEntries.size() < LEADERBOARD_SIZE){
+                        leaderboardEntries.add(leaderboardEntries.size(), new LeaderboardEntry(UserInfo.getEmail(), finalScoreLastGame));
+                        toUpdate = true;
+                    }
+                }
+
                 Log.e("updated", leaderboardEntries.toString());
+                Log.e("toUpdate", "to update " + toUpdate);
 
                 displayLeaderboard(leaderboardEntries, toUpdate);
 
@@ -236,6 +279,7 @@ public class Done extends AppCompatActivity {
 
 
     }
+
 
     private void displayLeaderboard(final ArrayList<LeaderboardEntry> entries, final boolean update) {
 
@@ -268,7 +312,7 @@ public class Done extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Uri uri) {
 
-                                        Picasso.get().load(uri).into(circleImageView);
+                                    Picasso.get().load(uri).into(circleImageView);
                                 }
                             });
                 }
@@ -354,17 +398,11 @@ public class Done extends AppCompatActivity {
 //                        .setQuote("I just scored " + finalScoreLastGame + " points playing Athena!. Download the game using the link below")
 //                        .setContentUrl(Uri.parse("https://github.com/neelkandlikar/Athena"))
 //                        .build();
+            realShareButton.performClick();
 //
 //                shareDialog.show(linkContent);
 //            }
 
-            ShareLinkContent content = new ShareLinkContent.Builder()
-                    .setContentUrl(Uri.parse("https://github.com/neelkandlikar/Athena"))
-                    .setQuote("I just scored " + finalScoreLastGame + " points on Athena!" + "\n" + "Download the game today!")
-                    .build();
-
-            ShareDialog shareDialog = new ShareDialog(Done.this);
-            shareDialog.canShow(content, ShareDialog.Mode.AUTOMATIC );
 
         }
     };
@@ -373,8 +411,51 @@ public class Done extends AppCompatActivity {
         @Override
         public void onClick(View view) {
 
+            shareTwitter("I just scored " + finalScoreLastGame + " points last game on Athena!" + "\n" + "Download it today to play with me!" + "\n" + "https://github.com/neelkandlikar/Athena");
+
+
         }
     };
+
+
+    private void shareTwitter(String message) {
+        Intent tweetIntent = new Intent(Intent.ACTION_SEND);
+        tweetIntent.putExtra(Intent.EXTRA_TEXT, message);
+        tweetIntent.setType("text/plain");
+
+
+        PackageManager packManager = getPackageManager();
+        List<ResolveInfo> resolvedInfoList = packManager.queryIntentActivities(tweetIntent, PackageManager.MATCH_DEFAULT_ONLY);
+
+        boolean resolved = false;
+        for (ResolveInfo resolveInfo : resolvedInfoList) {
+            if (resolveInfo.activityInfo.packageName.startsWith("com.twitter.android")) {
+                tweetIntent.setClassName(
+                        resolveInfo.activityInfo.packageName,
+                        resolveInfo.activityInfo.name);
+                resolved = true;
+                break;
+            }
+        }
+        if (resolved) {
+            startActivity(Intent.createChooser(tweetIntent, "Share Text"));
+        } else {
+            Intent i = new Intent();
+            i.putExtra(Intent.EXTRA_TEXT, message);
+            i.setAction(Intent.ACTION_VIEW);
+            i.setData(Uri.parse("https://twitter.com/intent/tweet?text=" + urlEncode(message)));
+            startActivity(i);
+        }
+    }
+
+    private String urlEncode(String s) {
+        try {
+            return URLEncoder.encode(s, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            Log.wtf(TAG, "UTF-8 should always be supported", e);
+            return "";
+        }
+    }
 
 
 }
