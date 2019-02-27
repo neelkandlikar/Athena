@@ -7,33 +7,46 @@
     tools:context=".SignUp">
 
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="46dp"
+        android:layout_marginBottom="220dp"
+        android:fontFamily="@font/roboto_thin"
+        android:text="sign up"
+        android:textColor="@color/lightRed"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toTopOf="@+id/loginLinearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginBottom="52dp"
+        android:src="@drawable/athenalogonew"
+        app:layout_constraintBottom_toTopOf="@+id/signUpLinearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <LinearLayout
         android:id="@+id/signUpLinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="25dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="92dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
-
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="46dp"
-            android:layout_marginBottom="220dp"
-            android:fontFamily="@font/roboto_thin"
-            android:text="sign up"
-            android:textColor="@color/lightRed"
-            android:textSize="50sp"
-            app:layout_constraintBottom_toTopOf="@+id/loginLinearLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
 
 
         <EditText

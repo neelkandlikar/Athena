@@ -7,29 +7,46 @@
     tools:context=".LoginEmail">
 
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="29dp"
+        android:fontFamily="@font/roboto_thin"
+        android:text="login"
+        android:textColor="@color/lightRed"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:layout_marginBottom="66dp"
+        android:src="@drawable/athenalogonew"
+        app:layout_constraintBottom_toTopOf="@+id/loginLinearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
     <LinearLayout
         android:id="@+id/loginLinearLayout"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="97dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="200dp"
-            android:fontFamily="@font/roboto_thin"
-            android:text="login"
-            android:textColor="@color/lightRed"
-            android:textSize="40sp"
-            tools:layout_editor_absoluteX="164dp"
-            tools:layout_editor_absoluteY="70dp" />
-
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3">
 
 
         <EditText
@@ -65,18 +82,6 @@
             android:backgroundTint="@color/lightRed"
             android:fontFamily="@font/roboto_thin"
             android:text="login"
-            android:textAllCaps="false"
-            android:textSize="20sp" />
-
-        <Button
-            android:id="@+id/signUpButton"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/round_button"
-            android:backgroundTint="@color/lightRed"
-            android:fontFamily="@font/roboto_thin"
-            android:text="signup"
             android:textAllCaps="false"
             android:textSize="20sp" />
 

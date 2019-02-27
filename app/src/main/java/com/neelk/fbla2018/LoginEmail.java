@@ -22,7 +22,6 @@ import es.dmoral.toasty.Toasty;
 public class LoginEmail extends AppCompatActivity {
 
     private Button login;
-    private Button signUp;
     private EditText emailEditText;
     private EditText passwordEditText;
     private FirebaseAuth mAuth;
@@ -37,8 +36,6 @@ public class LoginEmail extends AppCompatActivity {
 
         login = findViewById(R.id.loginEmailButton);
         login.setOnClickListener(loginOnClick);
-        signUp = findViewById(R.id.signUpButton);
-        signUp.setOnClickListener(signUpOnClick);
         emailEditText = findViewById(R.id.emailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         forgotPassword = findViewById(R.id.forgotPasswordTextView);
@@ -84,12 +81,7 @@ public class LoginEmail extends AppCompatActivity {
 
     };
 
-    private View.OnClickListener signUpOnClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            startActivity(new Intent(LoginEmail.this, SignUp.class));
-        }
-    };
+
 
     private View.OnClickListener forgotPasswordOnClick = new View.OnClickListener() {
         @Override

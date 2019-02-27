@@ -7,6 +7,22 @@
     <string name="or">or</string>
     <string name="email_address">Email Address</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="categorySpinnerArray">
+        <item>FBLA History</item>
+        <item>National Officers</item>
+        <item>National Sponsors</item>
+        <item>Basic Parliamentary Procedure</item>
+        <item>National Conference Information</item>
+        <item>Investments: Stocks</item>
+        <item>Investments: Bonds and Mutual Funds</item>
+    </string-array>
+
+    <string-array name="questionsOptionsArray">
+        <item>a</item>
+        <item>b</item>
+        <item>c</item>
+        <item>d</item>
+
+    </string-array>
+
 </resources>

@@ -1,6 +1,8 @@
 package com.neelk.fbla2018;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -12,6 +14,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +26,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 import es.dmoral.toasty.Toasty;
 
@@ -48,6 +52,9 @@ public class Game extends AppCompatActivity {
     private ProgressBar progressBar;
     private boolean isBonus;
     private int timeTaken;
+    private Drawable roundButton;
+    private SparseArray<Button> ids = new SparseArray<>();
+    private SparseArray<Button> chars = new SparseArray<>();
 
 
     @Override
@@ -55,8 +62,7 @@ public class Game extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        mBottomNavigationView = findViewById(R.id.navigation_game);
-        mBottomNavigationView.setSelectedItemId(R.id.menu_quiz);
+        setupNavigation();
 
 
         int id = Integer.parseInt(getIntent().getStringExtra("id"));
@@ -71,6 +77,18 @@ public class Game extends AppCompatActivity {
         correct = MediaPlayer.create(this, R.raw.correct);
         wrong = MediaPlayer.create(this, R.raw.wrong);
 
+        roundButton = getResources().getDrawable(R.drawable.round_button, getTheme());
+
+        ids.put(R.id.buttonA, buttonA);
+        ids.put(R.id.buttonB, buttonB);
+        ids.put(R.id.buttonC, buttonC);
+        ids.put(R.id.buttonD, buttonD);
+        chars.put('a', buttonA);
+        chars.put('b', buttonB);
+        chars.put('c', buttonC);
+        chars.put('d', buttonD);
+
+        QuestionLoader.clearAll();
         QuestionLoader.loadQuestions(Game.this, this, id);
 
 
@@ -79,10 +97,21 @@ public class Game extends AppCompatActivity {
 
     public void playCategory(ArrayList<Question> questions, int index) {
 
-        Log.e("questions", String.valueOf(questions));
+
+        buttonA.setBackgroundColor(getResources().getColor(R.color.lightRed, getTheme()));
+        buttonB.setBackgroundColor(getResources().getColor(R.color.lightRed, getTheme()));
+        buttonC.setBackgroundColor(getResources().getColor(R.color.lightRed, getTheme()));
+        buttonD.setBackgroundColor(getResources().getColor(R.color.lightRed, getTheme()));
+
+        buttonA.setBackground(roundButton);
+        buttonB.setBackground(roundButton);
+        buttonC.setBackground(roundButton);
+        buttonD.setBackground(roundButton);
 
 
         if (index >= questions.size()) {
+            Log.e("Timer","playCategory Timer cancelled");
+            countDownTimer.cancel();
             Intent intent = new Intent(Game.this, Done.class);
             intent.putExtra("score", scoreInt);
             intent.putExtra("numberCorrect", numberCorrect);
@@ -94,6 +123,7 @@ public class Game extends AppCompatActivity {
         currentIndex = index;
 
         if (index == 0) {
+            Collections.shuffle(questions);
             Collections.shuffle(questions);
             currentTopic = (ArrayList<Question>) questions.clone();
             numberCorrect = 0;
@@ -161,19 +191,37 @@ public class Game extends AppCompatActivity {
 
     }
 
+    private void newQuestion() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                playCategory(currentTopic, currentIndex + 1);
+            }
+        }, 1000);
+    }
+
     private View.OnClickListener wrongOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+
             wrong.start();
             // Toasty.error(Game.this, "Incorrect!", SMALL_TOAST_LENGTH, true).show();
             showToastMessageError("Incorrect!", SMALL_TOAST_LENGTH);
             countDownTimer.cancel();
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            playCategory(currentTopic, currentIndex + 1);
+
+            ids.get(view.getId()).setBackgroundColor(getResources().getColor(R.color.red, getTheme()));
+            char correctAnswer = currentTopic.get(currentIndex).getCorrectAnswer();
+            chars.get(correctAnswer).setBackgroundColor(getResources().getColor(R.color.green, getTheme()));
+
+            newQuestion();
+//            Handler handler = new Handler();
+//            handler.postDelayed(new Runnable() {
+//                public void run() {
+//                    playCategory(currentTopic, currentIndex + 1);
+//                }
+//            }, 1000);
+
+
         }
     };
 
@@ -181,18 +229,23 @@ public class Game extends AppCompatActivity {
         @Override
         public void onClick(View view) {
 
-            // Toasty.success(Game.this, "Correct", SMALL_TOAST_LENGTH, true).show();
-            showToastMessageSuccess("Correct", SMALL_TOAST_LENGTH);
             correct.start();
             scoreInt += calculateScore();
             numberCorrect++;
             countDownTimer.cancel();
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            playCategory(currentTopic, currentIndex + 1);
+
+            ids.get(view.getId()).setBackgroundColor(getResources().getColor(R.color.green, getTheme()));
+
+            showToastMessageSuccess("Correct", SMALL_TOAST_LENGTH);
+            newQuestion();
+
+//            Handler handler = new Handler();
+//            handler.postDelayed(new Runnable() {
+//                public void run() {
+//                    playCategory(currentTopic, currentIndex + 1);
+//                }
+//            }, 1000);
+
         }
     };
 
@@ -227,6 +280,7 @@ public class Game extends AppCompatActivity {
     }
 
     private void startCountDownTimer() {
+        Log.e("Timer","Starting count down timer");
         countDownTimer = new CountDownTimer(TIME_LEFT_MILLIS, 1000) {
             @Override
             public void onTick(long l) {
@@ -239,7 +293,13 @@ public class Game extends AppCompatActivity {
 
                 wrong.start();
                 Toasty.error(Game.this, "You have run out of time!", SMALL_TOAST_LENGTH).show();
-                playCategory(currentTopic, currentIndex + 1);
+                newQuestion();
+//                Handler handler = new Handler();
+//                handler.postDelayed(new Runnable() {
+//                    public void run() {
+//                        playCategory(currentTopic, currentIndex + 1);
+//                    }
+//                }, 1000);
 
 
             }
@@ -309,7 +369,7 @@ public class Game extends AppCompatActivity {
     }
 
     private void setupNavigation() {
-        mBottomNavigationView = findViewById(R.id.navigation_quiz);
+        mBottomNavigationView = findViewById(R.id.navigation_game);
         mBottomNavigationView.setSelectedItemId(R.id.menu_quiz);
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

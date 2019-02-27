@@ -7,6 +7,8 @@
     android:layout_height="match_parent"
     tools:context=".Quiz">
 
+
+
     <TextView
         android:id="@+id/playTextView"
         android:layout_width="wrap_content"
@@ -96,5 +98,41 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/navigation_items" />
+
+
+    <!--
+
+    <LinearLayout
+        android:id="@+id/quiz_linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/category1"
+            android:layout_width="match_parent"
+            android:backgroundTint="@color/lightRed"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/fblaHistoryImageView"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="30dp"/>
+
+            </RelativeLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+
+    </LinearLayout>
+
+    -->
 
 </android.support.constraint.ConstraintLayout>

@@ -1,8 +1,7 @@
 package com.neelk.fbla2018;
 
 import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,18 +17,32 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.HashMap;
+
+import es.dmoral.toasty.Toasty;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button emailLogin;
-    private ImageView googleSignIn;
-    private GoogleSignInClient googleSignInClient;
+    private Button emailSignup;
     private static int REQUEST_CODE = 1;
+    private GoogleSignInClient mGoogleSignInClient;
+    private com.google.android.gms.common.SignInButton googleLogin;
+    private static int GOOGLE_SIGN_REQUEST_CODE = 10;
+    private DatabaseReference databaseReference;
 
 
     @Override
@@ -37,14 +50,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        googleSignInClient = GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN);
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .requestProfile()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(MainActivity.this, gso);
+        UserInfo.setGoogleSignInClient(mGoogleSignInClient);
+
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+
 
         emailLogin = findViewById(R.id.mainActivity_emailButton);
         emailLogin.setOnClickListener(loginWithEmail);
-        googleSignIn = findViewById(R.id.googleLogo);
-        googleSignIn.setOnClickListener(googleSignInOnclick);
+        emailSignup = findViewById(R.id.mainActivity_emailSignupButton);
+        emailSignup.setOnClickListener(emailSignupOnClick);
 
-
+        googleLogin = findViewById(R.id.googleSignInButton);
+        googleLogin.setOnClickListener(googleOnClick);
 
 
     }
@@ -56,32 +79,96 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            if (result.isSuccess()) {
-                // The signed in account is stored in the result.
-                GoogleSignInAccount signedInAccount = result.getSignInAccount();
 
-            } else {
-                String message = result.getStatus().getStatusMessage();
-                if (message == null || message.isEmpty()) {
-                    // message = getString(R.string.signin_other_error);
-                    message = "Error!";
-                }
-                new AlertDialog.Builder(this).setMessage(message)
-                        .setNeutralButton(android.R.string.ok, null).show();
-            }
+    private View.OnClickListener googleOnClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+
+            Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+            startActivityForResult(signInIntent, GOOGLE_SIGN_REQUEST_CODE);
+
+        }
+    };
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == GOOGLE_SIGN_REQUEST_CODE) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
         }
     }
 
-    private View.OnClickListener googleSignInOnclick = new View.OnClickListener() {
+
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            Log.e("account println", account.getAccount().toString());
+            UserInfo.setEmail(account.getEmail());
+            UserInfo.setName(account.getDisplayName());
+            Log.e("displayName println", account.getDisplayName());
+            UserInfo.setProfilePicDownloadLink(account.getPhotoUrl());
+            UserInfo.setGoogleSignInAccount(account);
+
+            databaseReference.child("UserInfo").child(UserInfo.getEmail()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot == null || dataSnapshot.getChildren() == null) {
+                        HashMap<String, Object> map = new HashMap<>();
+                        map.put("emailAddress", UserInfo.getEmail().replaceAll(",", "\\."));
+                        map.put("name", UserInfo.getName());
+                        map.put("numberCorrect", "0");
+                        map.put("totalAnswered", "0");
+                        databaseReference.child("UserInfo").child(UserInfo.getEmail()).setValue(map)
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toasty.error(MainActivity.this, "Error Logging In!", Toast.LENGTH_SHORT, true).show();
+                                    }
+                                });
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+            startActivity(new Intent(MainActivity.this, Home.class));
+
+        } catch (ApiException e) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            Toasty.error(MainActivity.this, "Error signing in!", Toast.LENGTH_SHORT, true).show();
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+
+        if (account != null) {
+            UserInfo.setEmail(account.getEmail());
+            UserInfo.setName(account.getDisplayName());
+            UserInfo.setProfilePicDownloadLink(account.getPhotoUrl());
+            startActivity(new Intent(MainActivity.this, Home.class));
+        }
+
+    }
+
+    private View.OnClickListener emailSignupOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Intent intent = googleSignInClient.getSignInIntent();
-            startActivityForResult(intent, REQUEST_CODE);
+            startActivity(new Intent(MainActivity.this, SignUp.class));
         }
     };
 }

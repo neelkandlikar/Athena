@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -70,7 +71,14 @@ public class Home extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     Log.e("fetiching name", "name");
-                    UserInfo.setName(dataSnapshot.child("UserInfo").child(UserInfo.getEmail()).child("name").getValue(String.class));
+                    if (UserInfo.getName() == null) {
+                        UserInfo.setName(dataSnapshot.child("UserInfo").child(UserInfo.getEmail()).child("name").getValue(String.class));
+                    }
+
+                    if(UserInfo.getGoogleSignInAccount() != null){
+
+                    }
+
                     welcomeString = "Welcome, " + UserInfo.getName();
                     setTextView(welcomeString);
 
@@ -81,7 +89,7 @@ public class Home extends AppCompatActivity {
 
                 }
             });
-        }
+        } else welcomeString = "Welcome, " + UserInfo.getName();
 
 
         if (welcomeString != null) {
@@ -96,8 +104,15 @@ public class Home extends AppCompatActivity {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                int numCorrect = Integer.parseInt(dataSnapshot.child("UserInfo").child(UserInfo.getEmail()).child("numberCorrect").getValue(String.class).trim());
-                int totalAnswered = Integer.parseInt(dataSnapshot.child("UserInfo").child(UserInfo.getEmail()).child("totalQuestions").getValue(String.class).trim());
+                int numCorrect;
+                int totalAnswered;
+                try {
+                    numCorrect = Integer.parseInt(dataSnapshot.child("UserInfo").child(UserInfo.getEmail()).child("numberCorrect").getValue(String.class).trim());
+                    totalAnswered = Integer.parseInt(dataSnapshot.child("UserInfo").child(UserInfo.getEmail()).child("totalQuestions").getValue(String.class).trim());
+                } catch (NullPointerException e) {
+                    numCorrect = 0;
+                    totalAnswered = 0;
+                }
 
                 List<PieEntry> pieEntries = new ArrayList<>();
                 pieEntries.add(new PieEntry(numCorrect, "Number Correct"));

@@ -44,7 +44,7 @@
         android:layout_alignBottom="@id/settings_profile_pic_textView"
         android:layout_marginStart="105dp"
         android:layout_marginEnd="18dp"
-        android:layout_marginBottom="27dp"
+        android:layout_marginBottom="26dp"
         android:src="@drawable/emptyprofilepic"
         app:layout_constraintBottom_toTopOf="@+id/settings_name"
         app:layout_constraintEnd_toStartOf="@+id/floatingActionProfile"
@@ -68,15 +68,97 @@
         android:id="@+id/settings_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="351dp"
+        android:layout_marginBottom="45dp"
         android:fontFamily="@font/roboto_thin"
         android:text="Name"
         android:textColor="@color/lightRed"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/settings_profile_pic"
-        app:layout_constraintStart_toStartOf="@+id/settings_profile_pic"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/settings_profile_pic" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="101dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settings_name">
+
+        <Button
+            android:id="@+id/privacyPolicyButton"
+            android:layout_width="411dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/round_button"
+            android:backgroundTint="@color/lightRed"
+            android:drawableLeft="@drawable/ic_insert_drive_file_black_24dp"
+            android:fontFamily="@font/roboto_thin"
+            android:gravity="center|left"
+            android:paddingLeft="30dp"
+            android:text="     privacy policy "
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            tools:layout_editor_absoluteY="419dp" />
+
+
+        <Button
+            android:id="@+id/bugReportingButton"
+            android:layout_width="411dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/round_button"
+            android:backgroundTint="@color/lightRed"
+            android:drawableLeft="@drawable/ic_bug_report_black_24dp"
+            android:fontFamily="@font/roboto_thin"
+            android:gravity="center|left"
+            android:paddingLeft="30dp"
+            android:text="     report a bug "
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="485dp" />
+
+
+        <Button
+            android:id="@+id/addQuestionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/round_button"
+            android:backgroundTint="@color/lightRed"
+            android:drawableLeft="@drawable/ic_add_black_24dp"
+            android:fontFamily="@font/roboto_thin"
+            android:gravity="center|left"
+            android:paddingLeft="30dp"
+            android:text="     add a question "
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="560dp" />
+
+        <Button
+            android:id="@+id/logoutButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/round_button"
+            android:backgroundTint="@color/lightRed"
+            android:drawableLeft="@drawable/ic_arrow_back_black_24dp"
+            android:fontFamily="@font/roboto_thin"
+            android:gravity="center|left"
+            android:paddingLeft="30dp"
+            android:text="     logout "
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="560dp" />
+
+    </LinearLayout>
 
 
 </android.support.constraint.ConstraintLayout>

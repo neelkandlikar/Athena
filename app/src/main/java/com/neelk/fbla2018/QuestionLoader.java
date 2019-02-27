@@ -22,6 +22,19 @@ public class QuestionLoader {
     private static ArrayList<Question> nationalSponsorQuestions = new ArrayList<>();
     private static ArrayList<Question> parliQuestions = new ArrayList<>();
     private static ArrayList<Question> fblaHistory = new ArrayList<>();
+    private static ArrayList<Question> nationalConferenceInfo = new ArrayList<>();
+    private static ArrayList<Question> stocks = new ArrayList<>();
+    private static ArrayList<Question> bonds = new ArrayList<>();
+
+
+    public static ArrayList<Question> getStocks() {
+        return stocks;
+    }
+
+    public static ArrayList<Question> getBonds() {
+        return bonds;
+    }
+
 
     public static ArrayList<Question> getNationalOfficerQuestions() {
         return nationalOfficerQuestions;
@@ -43,7 +56,6 @@ public class QuestionLoader {
         return nationalConferenceInfo;
     }
 
-    private static ArrayList<Question> nationalConferenceInfo = new ArrayList<>();
 
     private static DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Questions");
 
@@ -53,9 +65,7 @@ public class QuestionLoader {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot categories : dataSnapshot.getChildren()) {
-                    Log.e("snap 1", categories.toString());
                     String currentCategory = categories.getKey();
-                    //Toast.makeText(context, currentCategory, Toast.LENGTH_LONG).show();
                     for (DataSnapshot question : categories.getChildren()) {
 
                         boolean bonusQuestion;
@@ -65,7 +75,6 @@ public class QuestionLoader {
                         else bonusQuestion = false;
 
                         String questionText = question.child("Question").getValue(String.class);
-                        Log.e("questionText", questionText);
                         String optionA = question.child("a").getValue(String.class);
                         String optionB = question.child("b").getValue(String.class);
                         String optionC = question.child("c").getValue(String.class);
@@ -102,8 +111,15 @@ public class QuestionLoader {
                                 fblaHistory.add(q);
                                 break;
 
-                        }
+                            case "Investments: Stocks":
+                                stocks.add(q);
+                                break;
 
+                            case "Investments: Bonds and Mutual Funds":
+                                bonds.add(q);
+                                break;
+
+                        }
 
                     }
                 }
@@ -117,5 +133,13 @@ public class QuestionLoader {
 
             }
         });
+    }
+
+    public static void clearAll() {
+        nationalConferenceInfo.clear();
+        nationalOfficerQuestions.clear();
+        nationalSponsorQuestions.clear();
+        fblaHistory.clear();
+        parliQuestions.clear();
     }
 }
