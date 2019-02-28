@@ -43,7 +43,7 @@ To install Athena simply enter the following on Unix Terminal
 git clone https://github.com/neelkandlikar/Athena.git
 ```
 
-Additionally, you can install Athena by either downloading the Zip File of the project, or directly downloading the APK File
+Additionally, you can install Athena by either downloading the Zip File of the project, or by directly downloading the APK File
 
  
 # Built With
