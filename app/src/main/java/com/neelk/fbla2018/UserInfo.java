@@ -53,4 +53,12 @@ public class UserInfo {
     public static String getEmail() {
         return UserInfo.email;
     }
+
+    public static void clearEmail(){
+        email = null;
+    }
+
+    public static void clearName(){
+        name = null;
+    }
 }

@@ -84,6 +84,12 @@ public class Done extends AppCompatActivity {
         facebookShare = findViewById(R.id.facebookImageView);
         realShareButton = findViewById(R.id.realShareButton);
 
+        Intent intent = getIntent();
+        int numCorrectLastGame = intent.getIntExtra("numberCorrect", 0);
+        finalScoreLastGame = intent.getIntExtra("score", 0);
+        int totalQuestionsAnsweredLastGame = intent.getIntExtra("totalQuestions", 0);
+        String displayFraction = numCorrectLastGame + "/" + totalQuestionsAnsweredLastGame;
+
 
         ShareLinkContent content = new ShareLinkContent.Builder()
                 .setContentUrl(Uri.parse("https://github.com/neelkandlikar/Athena"))
@@ -98,11 +104,6 @@ public class Done extends AppCompatActivity {
         storageReference = FirebaseStorage.getInstance().getReference();
 
 
-        Intent intent = getIntent();
-        int numCorrectLastGame = intent.getIntExtra("numberCorrect", 0);
-        finalScoreLastGame = intent.getIntExtra("score", 0);
-        int totalQuestionsAnsweredLastGame = intent.getIntExtra("totalQuestions", 0);
-        String displayFraction = numCorrectLastGame + "/" + totalQuestionsAnsweredLastGame;
 
         scoreTextView.setText("score" + "\n" + Integer.toString(finalScoreLastGame));
         questionsCorrectTextView.setText("total correct" + "\n" + displayFraction);

@@ -39,44 +39,21 @@ public class Quiz extends AppCompatActivity implements CategoryViewAdapter.OnIte
 
 
         setupNavigation();
-        initUi();
         initializeData();
 
         recyclerView = findViewById(R.id.recyclerView);
         LinearLayoutManager llm = new LinearLayoutManager(Quiz.this);
         recyclerView.setLayoutManager(llm);
 
+        recyclerView.setHasFixedSize(true);
+
         mAdapter = new CategoryViewAdapter(Quiz.this, quizCategories);
+
         recyclerView.setAdapter(mAdapter);
         mAdapter.setOnClick(this);
 
-
     }
 
-    private View.OnClickListener imageOnClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Intent intent = new Intent(Quiz.this, Game.class);
-            intent.putExtra("id", Integer.toString(view.getId()));
-            startActivity(intent);
-
-
-        }
-    };
-
-    private void initUi() {
-//        fblaHistoryImageView = findViewById(R.id.fblaHistoryImageView);
-//        fblaNationalSponsorsImageView = findViewById(R.id.nationalSponsorsImageView);
-//        fblaNationalOfficersImageView = findViewById(R.id.nationalOfficersImageView);
-//        fblaNlcInfoImageView = findViewById(R.id.nlcInfoImageView);
-//        fblaIntroParliImageView = findViewById(R.id.parliProcedureImageView);
-//
-//        fblaHistoryImageView.setOnClickListener(imageOnClick);
-//        fblaNationalSponsorsImageView.setOnClickListener(imageOnClick);
-//        fblaNationalOfficersImageView.setOnClickListener(imageOnClick);
-//        fblaNlcInfoImageView.setOnClickListener(imageOnClick);
-//        fblaIntroParliImageView.setOnClickListener(imageOnClick);
-    }
 
     public void selectFragment(MenuItem item) {
 
@@ -131,12 +108,12 @@ public class Quiz extends AppCompatActivity implements CategoryViewAdapter.OnIte
     private void initializeData() {
         quizCategories = new ArrayList<>();
         quizCategories.add(new QuizCategory(R.drawable.stocksnew, "Explore the world of stocks and learn about the stock market!", "Stocks"));
-        quizCategories.add(new QuizCategory(R.drawable.bondsnew, "There are more than just stocks when it comes to trading. Learn about bonds and mutual fund!", "Bonds"));
+        quizCategories.add(new QuizCategory(R.drawable.bondsnew, "There are more than just stocks when it comes to trading. Learn about bonds and mutual funds!", "Bonds"));
         quizCategories.add(new QuizCategory(R.drawable.fblahistorynew, "Test your FBLA History Knowledge!", "FBLA History"));
-        quizCategories.add(new QuizCategory(R.drawable.fblaparlinew, "Improve your skills and learn about Parliamentary Procedure!", "Parliamentary Procedure"));
-        quizCategories.add(new QuizCategory(R.drawable.nlcinfo, "Find out information about the FBLA National Conference!", "National Conference Info"));
         quizCategories.add(new QuizCategory(R.drawable.fblaofficersnew, "Learn about your FBLA National Officers!", "National Officers"));
         quizCategories.add(new QuizCategory(R.drawable.fblasponsorsnew, "Discover the FBLA sponsors and how they help!", "National Sponsors"));
+        quizCategories.add(new QuizCategory(R.drawable.fblaparlinew, "Improve your skills and learn about Parliamentary Procedure!", "Parliamentary Procedure"));
+        quizCategories.add(new QuizCategory(R.drawable.fblanlcnew, "Find out information about the FBLA National Conference!", "National Conference Info"));
 
     }
 

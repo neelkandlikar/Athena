@@ -22,7 +22,7 @@
         app:cardUseCompatPadding="true"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="4dp"
         android:backgroundTint="@color/lightRed">
 
         <android.support.constraint.ConstraintLayout

@@ -209,7 +209,9 @@ public class Game extends AppCompatActivity {
         @Override
         public void onClick(View view) {
 
-            countDownTimer.cancel();
+            if(countDownTimer != null) {
+                countDownTimer.cancel();
+            }
             wrong.start();
             // Toasty.error(Game.this, "Incorrect!", SMALL_TOAST_LENGTH, true).show();
             showToastMessageError("Incorrect!", SMALL_TOAST_LENGTH);
@@ -234,7 +236,9 @@ public class Game extends AppCompatActivity {
         @Override
         public void onClick(View view) {
 
-            countDownTimer.cancel();
+            if(countDownTimer != null) {
+                countDownTimer.cancel();
+            }
             correct.start();
             scoreInt += calculateScore();
             numberCorrect++;
@@ -293,7 +297,9 @@ public class Game extends AppCompatActivity {
     }
 
     private void startCountDownTimer() {
-        countDownTimer.start();
+        if(countDownTimer !=null) {
+            countDownTimer.start();
+        }
     }
 
     private int calculateScore() {
@@ -347,6 +353,7 @@ public class Game extends AppCompatActivity {
             case R.id.menu_quiz:
                 intent = new Intent(this, Quiz.class);
                 startActivity(intent);
+                break;
 
 
             case R.id.menu_settings:

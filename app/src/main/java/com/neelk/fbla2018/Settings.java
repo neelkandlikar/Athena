@@ -212,41 +212,21 @@ public class Settings extends AppCompatActivity {
     private View.OnClickListener logoutOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+
+            clearData();
+
             if (UserInfo.getGoogleSignInClient() != null) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(Settings.this);
-
-                builder.setNeutralButton("Logout", new DialogInterface.OnClickListener() {
+                UserInfo.getGoogleSignInClient().signOut().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        UserInfo.getGoogleSignInClient().signOut().addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                startActivity(new Intent(Settings.this, MainActivity.class));
-                            }
-                        });
-
+                    public void onSuccess(Void aVoid) {
+                        startActivity(new Intent(Settings.this, MainActivity.class));
                     }
                 });
 
-                builder.setPositiveButton("Remove Account", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        UserInfo.getGoogleSignInClient().revokeAccess()
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        startActivity(new Intent(Settings.this, MainActivity.class));
-                                    }
-                                });
-
-                    }
-                });
-
-                AlertDialog dialog = builder.create();
-                dialog.show();
             } else startActivity(new Intent(Settings.this, MainActivity.class));
         }
     };
+
 
     public void selectFragment(MenuItem item) {
 
@@ -281,6 +261,16 @@ public class Settings extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void clearData() {
+        if (UserInfo.getEmail() != null) {
+            UserInfo.clearEmail();
+        }
+
+        if (UserInfo.getName() != null) {
+            UserInfo.clearName();
+        }
     }
 
 

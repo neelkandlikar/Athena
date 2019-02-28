@@ -141,5 +141,7 @@ public class QuestionLoader {
         nationalSponsorQuestions.clear();
         fblaHistory.clear();
         parliQuestions.clear();
+        stocks.clear();
+        bonds.clear();
     }
 }

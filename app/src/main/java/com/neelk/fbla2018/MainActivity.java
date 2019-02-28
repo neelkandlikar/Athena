@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private Button emailSignup;
     private static int REQUEST_CODE = 1;
     private GoogleSignInClient mGoogleSignInClient;
-    private com.google.android.gms.common.SignInButton googleLogin;
+    private com.shobhitpuri.custombuttons.GoogleSignInButton googleLogin;
     private static int GOOGLE_SIGN_REQUEST_CODE = 10;
     private DatabaseReference databaseReference;
 
