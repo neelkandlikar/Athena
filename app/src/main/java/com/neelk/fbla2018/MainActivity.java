@@ -26,6 +26,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,15 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
        // startActivity(new Intent(MainActivity.this, Home.class));
         mainLogo = findViewById(R.id.main_logo);
-       try{
-           BitmapFactory.Options options = new BitmapFactory.Options();
-           options.inJustDecodeBounds = true;
-           BitmapFactory.decodeResource(getResources(), R.drawable.athenalogofinal, options);
-
-       } catch (Exception e){
-           e.printStackTrace();
-       }
-
+        Picasso.get().load(R.drawable.athenalogofinal).into(mainLogo);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .requestProfile()
