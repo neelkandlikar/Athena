@@ -114,8 +114,10 @@ public class Game extends AppCompatActivity {
 
         if (index >= questions.size()) {
             Log.e("Timer", "playCategory Timer cancelled");
-            countDownTimer.cancel();
-            countDownTimer = null;
+            if(countDownTimer != null) {
+                countDownTimer.cancel();
+                countDownTimer = null;
+            }
             stop = false;
             Intent intent = new Intent(Game.this, Done.class);
             intent.putExtra("score", scoreInt);
