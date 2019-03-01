@@ -23,6 +23,10 @@ import java.util.HashMap;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Copyright © 2019 Neel Kandlikar. All rights reserved.
+ */
+
 public class SignUp extends AppCompatActivity {
 
     private EditText emailEditText;

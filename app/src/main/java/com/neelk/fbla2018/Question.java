@@ -2,6 +2,11 @@ package com.neelk.fbla2018;
 
 import java.util.HashMap;
 
+/*
+ * Copyright © 2019 Neel Kandlikar. All rights reserved.
+ */
+
+
 public class Question {
 
     private String question;

@@ -17,6 +17,11 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+/*
+ * Copyright © 2019 Neel Kandlikar. All rights reserved.
+ */
+
+
 public class CategoryViewAdapter extends RecyclerView.Adapter<CategoryViewAdapter.CategoryViewHolder> {
 
     ArrayList<Quiz.QuizCategory> categories;

@@ -43,6 +43,10 @@ import es.dmoral.toasty.Toasty;
 
 import static android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE;
 
+/*
+ * Copyright © 2019 Neel Kandlikar. All rights reserved.
+ */
+
 
 public class Settings extends AppCompatActivity {
 

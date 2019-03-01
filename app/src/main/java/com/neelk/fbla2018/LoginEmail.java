@@ -19,6 +19,11 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Copyright © 2019 Neel Kandlikar. All rights reserved.
+ */
+
+
 public class LoginEmail extends AppCompatActivity {
 
     private Button login;

@@ -15,8 +15,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class QuestionLoader {
+/*
+ * Copyright © 2019 Neel Kandlikar. All rights reserved.
+ */
 
+
+public class QuestionLoader {
 
     private static ArrayList<Question> nationalOfficerQuestions = new ArrayList<>();
     private static ArrayList<Question> nationalSponsorQuestions = new ArrayList<>();

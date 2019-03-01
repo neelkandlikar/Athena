@@ -39,9 +39,10 @@ import java.util.HashMap;
 import java.util.List;
 
 
-/**
- * A simple {@link Fragment} subclass.
+/*
+ * Copyright © 2019 Neel Kandlikar. All rights reserved.
  */
+
 public class Home extends AppCompatActivity {
 
     private BottomNavigationView mBottomNavigationView;

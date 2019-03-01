@@ -30,6 +30,10 @@ import java.util.HashMap;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Copyright © 2019 Neel Kandlikar. All rights reserved.
+ */
+
 public class Game extends AppCompatActivity {
 
     private TextView score;

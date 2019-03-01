@@ -5,6 +5,11 @@ import android.net.Uri;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 
+/*
+ * Copyright © 2019 Neel Kandlikar. All rights reserved.
+ */
+
+
 public class UserInfo {
 
     private static String email;
@@ -54,11 +59,11 @@ public class UserInfo {
         return UserInfo.email;
     }
 
-    public static void clearEmail(){
+    public static void clearEmail() {
         email = null;
     }
 
-    public static void clearName(){
+    public static void clearName() {
         name = null;
     }
 }

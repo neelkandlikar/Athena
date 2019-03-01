@@ -4,6 +4,11 @@ import android.support.annotation.NonNull;
 
 import java.text.SimpleDateFormat;
 
+/*
+ * Copyright © 2019 Neel Kandlikar. All rights reserved.
+ */
+
+
 public class LeaderboardEntry implements Comparable<LeaderboardEntry> {
 
     private String email;

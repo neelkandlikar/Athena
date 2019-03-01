@@ -15,6 +15,11 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Copyright © 2019 Neel Kandlikar. All rights reserved.
+ */
+
+
 public class ForgotPassword extends AppCompatActivity {
 
     private EditText email;

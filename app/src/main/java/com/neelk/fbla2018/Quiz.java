@@ -16,9 +16,10 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 
 
-/**
- * A simple {@link Fragment} subclass.
+/*
+ * Copyright © 2019 Neel Kandlikar. All rights reserved.
  */
+
 public class Quiz extends AppCompatActivity implements CategoryViewAdapter.OnItemClicked {
 
     private ImageView fblaHistoryImageView;

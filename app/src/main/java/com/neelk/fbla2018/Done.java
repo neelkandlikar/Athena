@@ -45,6 +45,11 @@ import java.util.TooManyListenersException;
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.dmoral.toasty.Toasty;
 
+/*
+ * Copyright © 2019 Neel Kandlikar. All rights reserved.
+ */
+
+
 public class Done extends AppCompatActivity {
 
     private BottomNavigationView mBottomNavigationView;
