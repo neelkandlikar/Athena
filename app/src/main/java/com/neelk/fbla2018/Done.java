@@ -251,13 +251,14 @@ public class Done extends AppCompatActivity {
                 if (!entryExists) {
                     if (finalScoreLastGame > leaderboardEntries.get(leaderboardEntries.size()-1).getValue()) {
                         toUpdate = true;
-                        if (leaderboardEntries.size() == LEADERBOARD_SIZE) {
-                            leaderboardEntries.remove(leaderboardEntries.size()-1);
-                        }
                         for (int i = leaderboardEntries.size() - 1; i >= 0; i--) {
                             if (leaderboardEntries.get(i).getValue() < finalScoreLastGame) {
                                 leaderboardEntries.add(i, new LeaderboardEntry(UserInfo.getEmail(), finalScoreLastGame));
+                                break;
                             }
+                        }
+                        if (leaderboardEntries.size() >= LEADERBOARD_SIZE) {
+                            leaderboardEntries.remove(leaderboardEntries.size()-1);
                         }
                     } else if (leaderboardEntries.size() < LEADERBOARD_SIZE){
                         leaderboardEntries.add(leaderboardEntries.size(), new LeaderboardEntry(UserInfo.getEmail(), finalScoreLastGame));
@@ -280,7 +281,6 @@ public class Done extends AppCompatActivity {
 
 
     }
-
 
     private void displayLeaderboard(final ArrayList<LeaderboardEntry> entries, final boolean update) {
 
