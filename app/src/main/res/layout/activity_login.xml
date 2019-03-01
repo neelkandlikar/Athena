@@ -28,7 +28,7 @@
         android:layout_width="175dp"
         android:layout_height="175dp"
         android:layout_marginBottom="66dp"
-        android:src="@drawable/athenalogonew"
+        android:src="@drawable/athenalogofinal"
         app:layout_constraintBottom_toTopOf="@+id/loginLinearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

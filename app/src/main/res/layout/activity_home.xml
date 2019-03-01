@@ -82,7 +82,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginRight="30dp"
-            app:srcCompat="@drawable/athenalogonew"
+            app:srcCompat="@drawable/athenalogofinal"
             tools:layout_editor_absoluteX="138dp"
             tools:layout_editor_absoluteY="510dp" />
 
