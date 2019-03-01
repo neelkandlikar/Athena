@@ -1,6 +1,7 @@
 package com.neelk.fbla2018;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private com.shobhitpuri.custombuttons.GoogleSignInButton googleLogin;
     private static int GOOGLE_SIGN_REQUEST_CODE = 10;
     private DatabaseReference databaseReference;
+    private ImageView mainLogo;
 
 
     @Override
@@ -51,6 +53,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
        // startActivity(new Intent(MainActivity.this, Home.class));
+        mainLogo = findViewById(R.id.main_logo);
+       try{
+           BitmapFactory.Options options = new BitmapFactory.Options();
+           options.inJustDecodeBounds = true;
+           BitmapFactory.decodeResource(getResources(), R.drawable.athenalogofinal, options);
+
+       } catch (Exception e){
+           e.printStackTrace();
+       }
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
