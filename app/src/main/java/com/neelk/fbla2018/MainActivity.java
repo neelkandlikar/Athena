@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+       // startActivity(new Intent(MainActivity.this, Home.class));
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .requestProfile()
@@ -147,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            Log.e("Error", "signInResult:failed code=" + e.getStatusCode());
             Toasty.error(MainActivity.this, "Error signing in!", Toast.LENGTH_SHORT, true).show();
         }
     }

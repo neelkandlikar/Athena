@@ -57,7 +57,7 @@
             android:gravity="center"
             android:hint="name"
             android:inputType="textEmailAddress"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textColorHint="@color/lightRed"
             tools:layout_editor_absoluteX="81dp"
             tools:layout_editor_absoluteY="295dp" />
@@ -67,11 +67,11 @@
             android:id="@+id/signUp_emailEditText"
             android:layout_width="248dp"
             android:layout_height="48dp"
+            android:textColor="@color/white"
             android:layout_marginBottom="20dp"
             android:gravity="center"
             android:hint="email address"
             android:inputType="textEmailAddress"
-            android:textColor="@color/black"
             android:textColorHint="@color/lightRed"
             tools:layout_editor_absoluteX="81dp"
             tools:layout_editor_absoluteY="295dp" />
@@ -83,8 +83,8 @@
             android:layout_marginBottom="50dp"
             android:gravity="center"
             android:hint="password"
+            android:textColor="@color/white"
             android:inputType="textPassword"
-            android:textColor="@color/black"
             android:textColorHint="@color/lightRed"
             tools:layout_editor_absoluteX="75dp"
             tools:layout_editor_absoluteY="406dp" />

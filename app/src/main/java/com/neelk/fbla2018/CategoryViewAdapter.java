@@ -38,25 +38,26 @@ public class CategoryViewAdapter extends RecyclerView.Adapter<CategoryViewAdapte
 
     @NonNull
     @Override
-    public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, final int i) {
+    public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup,  int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item, viewGroup, false);
         CategoryViewHolder viewHolder = new CategoryViewHolder(v);
-        viewHolder.cv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onClick.onItemClick(i);
-            }
-        });
+
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CategoryViewHolder categoryViewHolder, int i) {
+    public void onBindViewHolder(@NonNull CategoryViewHolder categoryViewHolder, final int i) {
         categoryViewHolder.categoryTextView.setText(categories.get(i).message);
         // categoryViewHolder.categoryIcon.setImageResource(categories.get(i).resId);
       //  Glide.with(context).load(categories.get(i).resId).into(categoryViewHolder.categoryIcon);
         Picasso.get().load(categories.get(i).resId).fit().into(categoryViewHolder.categoryIcon);
         categoryViewHolder.nameTextView.setText(categories.get(i).categoryName);
+        categoryViewHolder.cv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClick.onItemClick(i);
+            }
+        });
 
 
     }

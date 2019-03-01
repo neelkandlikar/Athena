@@ -6,6 +6,8 @@
     <string name="fb_login_protocol_scheme">fb2097403743687360</string>
     <string name="or">or</string>
     <string name="email_address">Email Address</string>
+    <string name="server_client_id">671051611780-8h3ge4pc1fpkc46otti5a210b0kpuj93.apps.googleusercontent.com</string>
+
 
     <string-array name="categorySpinnerArray">
         <item>FBLA History</item>
