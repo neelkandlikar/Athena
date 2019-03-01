@@ -55,7 +55,7 @@ Additionally, you can install Athena by either downloading the Zip File of the p
 
 # Website
 
-Visit our [website](http://athenaquiz.com) to learn more about Athena
+Visit our [website](http://athenaquiz.com) to learn more about Athena.
 
 # Contributing
 
