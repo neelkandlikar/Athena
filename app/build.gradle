@@ -35,7 +35,7 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.google.firebase:firebase-storage:16.0.5'
     testImplementation 'junit:junit:4.12'
-    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+    implementation 'com.facebook.android:facebook-android-sdk:4.41.0'
     implementation 'com.google.android.gms:play-services-games:16.0.0'
     implementation 'com.shobhitpuri.custombuttons:google-signin:1.0.0'
     implementation 'com.google.android.gms:play-services-identity:16.0.0'

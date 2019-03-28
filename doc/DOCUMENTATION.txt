@@ -1,0 +1,4 @@
+Launch the app using the play button on Android Studio
+Further Instructions and detailed information about the App Can be found in the README
+Link to Github Provides all of the information and necessary details
+https://github.com/neelkandlikar/Athena

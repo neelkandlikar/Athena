@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Done">
+
+    <LinearLayout
+        android:id="@+id/done_verticalHeaderLinearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/gameStatisticsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/lightRed"
+            android:layout_marginBottom="50dp"
+            android:fontFamily="@font/roboto_thin"
+            android:text="game statistics"
+            android:textSize="50sp" />
+
+
+        <LinearLayout
+            android:id="@+id/done_scoreHorizontalLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="175dp">
+
+            <TextView
+                android:id="@+id/done_finalScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginRight="30dp"
+                android:fontFamily="@font/roboto_thin"
+                android:text="Filler Text"
+                android:textSize="30sp" />
+
+            <ImageView
+                android:id="@+id/facebookImageView"
+                android:layout_width="50dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/facebooklogo"
+                android:layout_height="50dp" />
+
+            <ImageView
+                android:id="@+id/twitterImageView"
+                android:layout_width="50dp"
+                android:layout_marginRight="30dp"
+                android:src="@drawable/twitterlogo"
+                android:layout_height="50dp" />
+
+            <TextView
+                android:id="@+id/done_numberCorrect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_thin"
+                android:text="Filler"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/lightRed" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/done_cardViewsLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/done_verticalHeaderLinearLayout"
+        app:layout_constraintVertical_bias="0.102">
+
+        <TextView
+            android:id="@+id/leaderboardTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_thin"
+            android:text="Leaderboard"
+            android:textColor="@color/lightRed"
+            android:textSize="40sp" />
+
+        <com.facebook.share.widget.ShareButton
+            android:id="@+id/realShareButton"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="invisible"/>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/leaderboard1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/cardView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profilePic1"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginBottom="20dp" />
+
+                <TextView
+                    android:id="@+id/name1"
+                    android:layout_width="155dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="8dp"
+                    android:textColor="@color/lightRed"
+                    android:layout_marginBottom="50dp"
+                    android:fontFamily="@font/roboto_thin"
+                    android:text="Name"
+                    android:textSize="35sp" />
+
+                <TextView
+                    android:id="@+id/score1"
+                    android:layout_width="105dp"
+                    android:layout_height="75dp"
+                    android:layout_alignBottom="@id/name1"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginRight="39dp"
+                    android:layout_marginBottom="-76dp"
+                    android:fontFamily="@font/roboto_thin"
+                    android:text="Score"
+                    android:textSize="25sp" />
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/leaderboard2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/cardView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profilePic2"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginBottom="20dp" />
+
+                <TextView
+                    android:id="@+id/name2"
+                    android:layout_width="155dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="8dp"
+                    android:textColor="@color/lightRed"
+                    android:layout_marginBottom="50dp"
+                    android:fontFamily="@font/roboto_thin"
+                    android:text="Name"
+                    android:textSize="35sp" />
+
+                <TextView
+                    android:id="@+id/score2"
+                    android:layout_width="105dp"
+                    android:layout_height="75dp"
+                    android:layout_alignBottom="@id/name2"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginRight="39dp"
+                    android:layout_marginBottom="-76dp"
+                    android:fontFamily="@font/roboto_thin"
+                    android:text="Score"
+                    android:textSize="25sp" />
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/leaderboard3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/cardView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profilePic3"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginBottom="20dp" />
+
+                <TextView
+                    android:id="@+id/name3"
+                    android:layout_width="155dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="8dp"
+                    android:textColor="@color/lightRed"
+                    android:layout_marginBottom="50dp"
+                    android:fontFamily="@font/roboto_thin"
+                    android:text="Name"
+                    android:textSize="35sp" />
+
+                <TextView
+                    android:id="@+id/score3"
+                    android:layout_width="105dp"
+                    android:layout_height="75dp"
+                    android:layout_alignBottom="@id/name3"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginRight="39dp"
+                    android:layout_marginBottom="-76dp"
+                    android:fontFamily="@font/roboto_thin"
+                    android:text="Score"
+                    android:textSize="25sp" />
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+
+    </LinearLayout>
+
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation_done"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/navigation_items" />
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignUp">
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="46dp"
+        android:layout_marginBottom="220dp"
+        android:fontFamily="@font/roboto_thin"
+        android:text="sign up"
+        android:textColor="@color/lightRed"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toTopOf="@+id/loginLinearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginBottom="52dp"
+        android:src="@drawable/athenalogofinal"
+        app:layout_constraintBottom_toTopOf="@+id/signUpLinearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <LinearLayout
+        android:id="@+id/signUpLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="92dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+
+        <EditText
+            android:id="@+id/signUp_nameEditText"
+            android:layout_width="248dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:hint="name"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/white"
+            android:textColorHint="@color/lightRed"
+            tools:layout_editor_absoluteX="81dp"
+            tools:layout_editor_absoluteY="295dp" />
+
+
+        <EditText
+            android:id="@+id/signUp_emailEditText"
+            android:layout_width="248dp"
+            android:layout_height="48dp"
+            android:textColor="@color/white"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:hint="email address"
+            android:inputType="textEmailAddress"
+            android:textColorHint="@color/lightRed"
+            tools:layout_editor_absoluteX="81dp"
+            tools:layout_editor_absoluteY="295dp" />
+
+        <EditText
+            android:id="@+id/signUp_passwordEditText"
+            android:layout_width="261dp"
+            android:layout_height="53dp"
+            android:layout_marginBottom="50dp"
+            android:gravity="center"
+            android:hint="password"
+            android:textColor="@color/white"
+            android:inputType="textPassword"
+            android:textColorHint="@color/lightRed"
+            tools:layout_editor_absoluteX="75dp"
+            tools:layout_editor_absoluteY="406dp" />
+
+
+        <Button
+            android:id="@+id/signup_signupButton"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_button"
+            android:backgroundTint="@color/lightRed"
+            android:fontFamily="@font/roboto_thin"
+            android:text="sign up"
+            android:textAllCaps="false"
+            android:textSize="30dp" />
+
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
