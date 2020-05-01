@@ -39,7 +39,7 @@ Meet Athena, the Quiz App designed for you. Compete in seven unique categories a
 
 ## Installation
 
-To install Athena simply enter the following on Unix Terminal
+To install Athena simply enter the following on your Terminal
 ```
 git clone https://github.com/neelkandlikar/Athena.git
 ```
